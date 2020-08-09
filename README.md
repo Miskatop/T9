@@ -3,6 +3,10 @@
 #### T9 library allows use T9 keyboard combination to encoding and decoding string
 #### T9 keyboard you can view in pushbutton nokia keyboard (Nokia 3310)
 
+## Encode/Decode strings
+#### this is exaple of encoded string : `4431525262269062725230`
+#### this is decoden t9 string : `Hello world`
+
 ## How to use
 
 ```python 
