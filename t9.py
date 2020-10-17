@@ -7,11 +7,11 @@ class T9:
 	print(f'this is exaple of encoded string : {enc}')
 	print(f'this is decoden t9 string : {x.decode(enc)}')"""
 	structure = {
-		1:[ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-		2:['a', 'b', 'c', 'A', 'B', 'C', 'sp'],
-		3:['d', 'e', 'f', 'D', 'E', 'F'],
-		4:['g', 'h', 'i', 'G', 'H', 'I'],
-		5:['j', 'k', 'l', 'J', 'K', 'L'],
+		1:['0', '2', '3', '1', '7', '4', '5', '6', '9', '8', '%', '(', ')'],
+		2:['a', 'b', 'c', 'A', 'B', 'C', 'sp', '$', '!', '@', '^', '&', '*'],
+		3:['d', 'e', 'f', 'D', 'E', 'F', '_', '-', '=', '+', '~', '`', '<'],
+		4:['g', 'h', 'i', 'G', 'H', 'I', '>', '"', "'", ',', '.', '/', '\\'],
+		5:['j', 'k', 'l', 'J', 'K', 'L', '{', '}', '[', ']', '|', '՞'],
 		6:['m', 'n', 'o', 'M', 'N', 'O'],
 		7:['p', 'q', 'r', 's', 'P', 'Q', 'R', 'S'],
 		8:['t', 'u', 'v', 'T', 'U', 'V'],
@@ -24,21 +24,18 @@ class T9:
 				if i == ' ':
 					i = 'sp'
 				if i in v:
-					res += str(c)+str(v.index(i))
+					res += str(c)+str(v.index(i))+'|'
 		return res
 
 	def decode(self, string):
 		res = ''
-		str_list = []
-		while len(string) != 0:
-			str_list.append(string[:2])
-			string = string[2:]
-
-		for i in str_list:
-			decoded_char = self.structure[int(i[0])][int(i[-1])]
+		for i in string.split('|'):
+			i = i if len(i) > 1 else False
+			if i :
+				decoded_char = self.structure[int(i[0])][int(i[1:])]
 			if decoded_char == 'sp':
 				decoded_char = ' '
-			res+=decoded_char
+			res+= decoded_char if i else ''
 
 		return res
 
@@ -51,6 +48,6 @@ if __name__ == '__main__':
 	elif '-d' in argv :
 		print(t9.decode(argv[-1]))
 	else:
-		enc = t9.encode('Hello world')
+		enc = t9.encode('Hello World !!')
 		print(f'this is exaple of encoded string : {enc}')
 		print(f'this is decoden t9 string : {t9.decode(enc)}')
