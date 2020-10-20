@@ -18,7 +18,7 @@ class T9:
         9: ['w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z'],
     }
 
-    def encode(self, string):
+    def _encrypt(self, string):
         res = ''
         for i in string:
             for c, v in self.structure.items():
@@ -28,7 +28,7 @@ class T9:
                     res += str(c) + str(v.index(i)) + '|'
         return res
 
-    def decode(self, string):
+    def _decrypt(self, string):
         res = ''
         for i in string.split('|'):
             i = i if len(i) > 1 else False
@@ -40,6 +40,36 @@ class T9:
 
         return res
 
+    def encode(self, string, key=None):
+        encrypted = ''
+
+        if key:
+            encrypted+= self._encrypt(key)+'{||}'
+        
+        encrypted+=self._encrypt(string)
+        
+        return encrypted
+
+    def decode(self, string, key=None):
+        if not key and '{||}' in string:
+            raise KeyError('string have a secure key')
+
+        if '{||}' in string:
+            key_hash = string.split('{||}')
+            string = key_hash[1]
+            code = self._decrypt(key_hash[0])
+
+            if key != code:
+                raise KeyError('Key is invalid')
+
+        decrypted = ''
+
+
+        decrypted+=self._decrypt(string)
+
+        return decrypted
+
+
 if __name__ == '__main__':
     import sys
     import timeit
@@ -49,12 +79,13 @@ if __name__ == '__main__':
     start = timeit.default_timer()
 
     if '-e' in argv:
-        print(t9.encode(argv[-1]))
+        print(t9.encode(argv[-1],))
     elif '-d' in argv:
         print(t9.decode(argv[-1]))
     else:
         enc = t9.encode('Hello World !!!')
         print(f'this is exaple of encoded string : {enc}')
-        print(f'this is decoden t9 string : {t9.decode(enc)}')
+        decoded = t9.decode(enc)
+        print(f'this is decoden t9 string : {decoded}')
     stop = timeit.default_timer()
     print('Time: ', stop - start)
