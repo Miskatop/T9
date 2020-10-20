@@ -11,11 +11,14 @@
 
 > Version-0.3
 >> Create Setup.py for installing in python
+>
 >> Cythonize
+>
 >> Add new chars
 
 > Version-0.4
 >> Add javascript encoder
+>
 >> Add key mode to scripts ( 20.10.2020 - Only python )
 
 ## Encode/Decode strings
@@ -26,6 +29,7 @@
 ```bash
 sudo python3 setup.py
 ```
+---
 
 ## How to use
 
