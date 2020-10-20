@@ -2,25 +2,6 @@
 #### T9 library allows use T9 keyboard combination to encoding and decoding string
 #### T9 keyboard you can view in pushbutton nokia keyboard (Nokia 3310)
 
-## Release Info
-> Version-0.1
->> Basic Working code
-
-> Version-0.2
->> Optimize Code And new encodeing type
-
-> Version-0.3
->> Create Setup.py for installing in python
->
->> Cythonize
->
->> Add new chars
-
-> Version-0.4
->> Add javascript encoder
->
->> Add key mode to scripts ( 20.10.2020 - Only python )
-
 ## Encode/Decode strings
 #### this is exaple of encoded string : `44|31|52|52|62|26|94|62|72|52|30|`
 #### this is decoden t9 string : `Hello world`
@@ -61,6 +42,25 @@ print(f'this is exaple of encoded string : {enc}')
 dec = x.decode(enc, key = '123456')
 print(f'this is decoden t9 string : {dec}') # decoding encoded string
 ```
+## Release Info
+> Version-0.1
+>> Basic Working code
+
+> Version-0.2
+>> Optimize Code And new encodeing type
+
+> Version-0.3
+>> Create Setup.py for installing in python
+>
+>> Cythonize
+>
+>> Add new chars
+
+> Version-0.4
+>> Add javascript encoder
+>
+>> Add key mode to scripts ( 20.10.2020 - Only python )
+
 [My Facebook](https://www.facebook.com/King.of.the.wold.Misha/)
 
 # Thank you for use the T9 library :wink:
