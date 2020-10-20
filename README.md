@@ -13,7 +13,7 @@
 >> Setup and Cythonize, add new chars
 
 ## Encode/Decode strings
-#### this is exaple of encoded string : `4431525262269062725230`
+#### this is exaple of encoded string : `44|31|52|52|62|26|94|62|72|52|30|`
 #### this is decoden t9 string : `Hello world`
 
 ## How to install
@@ -22,6 +22,13 @@ sudo python3 setup.py
 ```
 
 ## How to use
+
+```js
+t9 = new T9(); // initializing T9 class
+let encoded_string = t9.encode('Hello World !!!'); // encoding string
+console.log(encoded_string)
+console.log(t9.decode(encoded_string)) // decoding encoded string
+```
 
 ```python 
 from t9 import T9 # import T9
