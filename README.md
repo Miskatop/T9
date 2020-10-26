@@ -13,14 +13,14 @@ sudo python3 setup.py
 ---
 
 ## How to use
-
+### JavaScript
 ```js
 t9 = new T9(); // initializing T9 class
 let encoded_string = t9.encode('Hello World !!!'); // encoding string
 console.log(encoded_string)
 console.log(t9.decode(encoded_string)) // decoding encoded string
 ```
-
+### Python3
 ```python 
 from t9 import T9 # import T9
 
