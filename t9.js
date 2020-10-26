@@ -12,7 +12,7 @@ class T9{
 			9: ['w', 'x', 'y', 'z', 'W', 'X', 'Y', 'Z'],
 		};
 	}
-	encode(str){
+	_encrypt(str){
 		let result='';
 		let modeline;
 		let char;
@@ -32,7 +32,7 @@ class T9{
 		}
 		return result
 	}
-	decode(source){
+	_decrypt(source){
 		let result='';
 		let itemof;
 		let char;
@@ -50,9 +50,34 @@ class T9{
 
 		return result;
 	}
+	encode(content, key=null){
+		let string = '';
+		if (key && typeof(key) == 'string') {
+			string += this._encrypt(key)+'{||}'
+		}
+		string+=this._encrypt(content)
+		return string
+	}
+	decode(content, key=null){
+		if (!key && 
+			content.search("{||}") != -1) 
+		{
+			throw Error('Sorry !, string have a Secure key')
+		}
+
+		if (key) {
+			content = content.split('{||}');
+			if (key != this._decrypt(content[0])) {
+				throw Error('Key is Invalid');
+			}
+			content = content[1]
+		}
+
+		return this._decrypt(content)
+	}
 }
 
-x = new T9();
-let c = x.encode('Hello World !!!');
-console.log(c)
-console.log(x.decode(c))
+t9 = new T9();
+let encoded_string = t9.encode('Hello World', key='123456');
+console.log(encoded_string)
+console.log(t9.decode(encoded_string, key='123456'))
