@@ -31,7 +31,9 @@ print(f'this is exaple of encoded string : {enc}')
 print(f'this is decoden t9 string : {x.decode(enc)}') # decoding encoded string
 ```
 
-## You can inject key to string ( Only Python version )
+## You can inject key to string
+---
+#### Python
 ```python
 from t9 import T9 # import T9
 
@@ -42,6 +44,11 @@ print(f'this is exaple of encoded string : {enc}')
 dec = x.decode(enc, key = '123456')
 print(f'this is decoden t9 string : {dec}') # decoding encoded string
 ```
+### For injecting key send encode function 'key' parameter  `
+```js
+t9.encode('Any String', key = 'Your Key')
+```
+
 ## Release Info
 > Version-0.1
 >> Basic Working code
@@ -60,6 +67,9 @@ print(f'this is decoden t9 string : {dec}') # decoding encoded string
 >> Add javascript encoder
 >
 >> Add key mode to scripts ( 20.10.2020 - Only python )
+
+> Version-0.4
+>> Add key mode to all scripts
 
 [My Facebook](https://www.facebook.com/King.of.the.wold.Misha/)
 
