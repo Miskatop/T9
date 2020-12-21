@@ -1,20 +1,18 @@
 from setuptools import Extension
 from setuptools import setup
 
-from Cython.Build import cythonize
-
 extensions = [
     Extension(
         'encoder',
         sources=[
-            't9.pyx'
+            't9.py'
         ],
-        language='c++',
+        language='Python',
         include_dirs=['.'],
-        extra_compile_args=['-std=c++11'],
+        extra_compile_args=[],
     ),
 ]
 
 setup(
-    ext_modules=cythonize(extensions),
+    ext_modules=extensions
 )
