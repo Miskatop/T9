@@ -56,23 +56,26 @@ class T9:
 
 		return res
 
-	def encode(self, string, key=None):
+	def encode(self, text, key=None, type=None):
 		encrypted = ''
 
 		if key:
 			encrypted += self._encrypt(key) + '{k}'
 
-		encrypted += self._encrypt(string)
+		encrypted += self._encrypt(text)
 
-		return encrypted
+		if type:
+			return string(text,encrypted)
+		else:
+			return encrypted
 
-	def decode(self, string, key=None):
-		if not key and '{k}' in string:
+	def decode(self, text, key=None):
+		if not key and '{k}' in text:
 			raise KeyError('string is protected by secure key')
 
-		if '{k}' in string:
+		if '{k}' in text:
 			key_hash = string.split('{k}')
-			string = key_hash[1]
+			text = key_hash[1]
 			code = self._decrypt(key_hash[0])
 
 			if key != code:
@@ -80,9 +83,34 @@ class T9:
 
 		decrypted = ''
 
-		decrypted += self._decrypt(string)
+		decrypted += self._decrypt(text)
 
-		return decrypted
+		return string(decrypted)
+
+	def asString(self, text):
+		stt = string(text)
+		return stt
+
+
+class string:
+	def __init__(self, text, enc=None):
+		self._text = text
+		self._enc = enc
+		self._T9 = T9()
+
+	def __str__(self):
+		return self._text.replace('{k}', "")
+
+	def decode(self, key=None):
+		if self._enc:
+			return self._T9.decode(self._enc, key)
+		else:
+			raise EOFError("string is not encoded")
+
+	def encode(self, key=None):
+		self._T9.encode(self._text, key, 1)
+		self._enc = self._T9.encode(self._text, key)
+		return self._enc
 
 if __name__ == '__main__':
 	import timeit
