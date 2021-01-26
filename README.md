@@ -36,7 +36,7 @@ x = STRINGER() # initializing STRINGER class
 string = 'hello world' 
 enc = x.encode('Hello world') # encoding string
 print(f'this is exaple of encoded string : {enc}')
-print(f'this is decoden t9 string : {x.decode(enc)}') # decoding encoded string
+print(f'this is decoden STRINGER string : {x.decode(enc)}') # decoding encoded string
 ```
 
 ### CRYPTER - crypter`
@@ -47,7 +47,7 @@ x = CRYPTER() # initializing CRYPTER class
 string = 'hello world'
 enc = x.encode('Hello world') # encoding string
 print(f'this is exaple of encoded string : {enc}')
-print(f'this is decoden t9 string : {x.decode(enc)}') # decoding encoded string
+print(f'this is decoden CRYPTER string : {x.decode(enc)}') # decoding encoded string
 ```
 
 ### base64 - crypter`
