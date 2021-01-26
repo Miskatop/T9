@@ -1,4 +1,36 @@
 #!/usr/bin/python3
+from random import sample
+from cryptography.fernet import Fernet
+import base64
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+
+
+class CRYPTER:
+	def __init__(self, key="password"):
+		password_provided = key
+		password = password_provided.encode()
+		salt = b'salt_'
+		kdf = PBKDF2HMAC(
+			algorithm=hashes.SHA256(),
+			length=32,
+			salt=salt,
+			iterations=100,
+			backend=default_backend()
+		)
+
+		key = base64.urlsafe_b64encode(kdf.derive(password)) 
+
+		self._f = Fernet(key)
+
+	def encode(self, data):
+		return self._f.encrypt(bytes(data, "utf-8"))
+
+	def decode(self, data):
+		return self._f.decrypt(data).decode()
+
+
 class T9:
 	"""usage type :
 	x = T9()
@@ -90,6 +122,62 @@ class T9:
 	def asString(self, text):
 		stt = string(text)
 		return stt
+
+class STRINGER:
+	def _spl_crypt(self, str_):
+		PARTS = 2
+		start = 0
+		len_ = len(str_)
+		parts = []
+		for i in range(1, PARTS+1):
+			end = int((len_/PARTS)*i)
+			if i == PARTS:
+				end = None
+			parts.append(str_[start:end])
+			start = end
+
+		return str(parts[0])+"^|^"+str(parts[-1])
+
+
+	def encrypt(self, string):
+		encrypted = ""
+		word_list = string.split(' ')
+		indexes = {}
+		keys = sample(word_list, len(word_list))
+
+		for i, word in enumerate(word_list):
+			indexes[word] = i
+
+		for key in keys:
+			encrypted += str(self._spl_crypt(key[::-1])) + "[||]" + str(indexes[key]) + "{||}"
+		return encrypted
+
+
+	def decrypt(self, string):
+		wi_list = string.split("{||}")
+		wi_2 = []
+		for wi in wi_list.copy():
+			if len(wi) > 0:
+				wi_2.append(wi)
+
+		result = ""
+		sorted_ = [int(item.split("[||]")[-1]) for item in wi_2]
+		sorted_.sort()
+
+		for item in wi_2:
+			text, i = item.split("[||]")
+			text_ = text.split("^|^")[::-1]
+			if len(text[0]) > 1 or len(text[1]) > 1:
+				text_ = text_.reverse()
+
+			text_ = text_[0][::-1] + text_[1][::-1]
+
+			sorted_[int(i)] = text_
+
+		for std in sorted_:
+			result+=std+" "
+
+		return result
 
 
 class string:
