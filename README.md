@@ -27,6 +27,10 @@ enc = x.encode('Hello world') # encoding string
 print(f'this is exaple of encoded string : {enc}')
 print(f'this is decoden t9 string : {x.decode(enc)}') # decoding encoded string
 ```
+##### T9 - encoder have a secure mode\` for activate secure mode add the `key` attribute to encrypt function: example\` 
+```python
+    t9.encrypt("Text", key="123456")
+``` 
 
 ### STRINGER - crypter`
 ```python 
